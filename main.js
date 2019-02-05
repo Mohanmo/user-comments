@@ -1,132 +1,174 @@
-function init() {
-  var form = document.getElementById("myForm");
-  form.addEventListener("submit", postUserComments, false);
-
+var allComments = {
+  list:[
+      // {
+      //   userComment:'root1',
+      //   userName:'root1',
+      //   allComments:[
+      //     {
+      //       userComment:'sub',
+      //       userName:'sub',
+      //       allComments:[]
+      //     },
+      //     {
+      //       userComment:'sub',
+      //       userName:'sub',
+      //       allComments:[]
+      //     }
+      //   ]
+      // },
+      // {
+      //   userComment:'root2',
+      //   userName:'root2',
+      //   allComments:[
+      //     {
+      //       userComment:'sub2',
+      //       userName:'sub2',
+      //       allComments:[]
+      //     },
+      //     {
+      //       userComment:'sub2',
+      //       userName:'sub2',
+      //       allComments:[{
+      //         userComment:'sub2-1',
+      //         userName:'sub2-1',
+      //         allComments:[{
+      //           userComment:'sub2-2',
+      //           userName:'sub2-2',
+      //           allComments:[ {
+      //             userComment:'sub2-1',
+      //             userName:'sub2-1',
+      //             allComments:[{
+      //               userComment:'sub2-2',
+      //               userName:'sub2-2',
+      //               allComments:[]
+      //             }]
+      //           }]
+      //         }]
+      //       }]
+      //     }
+      //   ]
+      // }
+  ]
 };
 
-var mainObject = {
-  allComments: []
-};
+//Dom Registeration;
+var postBtn = document.getElementById('submit');
+postBtn.addEventListener('click',postComment,false);
 
-function postUserComments(e) {
-  var comments = document.getElementById('comments').value;
-  var username = document.getElementById('username').value;
-  console.log(comments, username);
-  // if (comments == '' && username == '') {
-  //   return alert('enter all details')
-  // }
-  let allCommentsDetails = {
-    comments,
-    username,
-    userComments:[]
-  };
-  mainObject.allComments.push(allCommentsDetails);
-  console.log(mainObject);
-  showUserComments();
-  resetUserInput();
-  userReply();
-  userComments();
-  e.preventDefault()
-  // return false;
-};
+function postComment(e){  
+    console.log(e);
+    let userComment = document.getElementById('main-id-comment').value;
+    let userName = document.getElementById('main-id-username').value;
 
-function userReply() {
-  var replyBtn = document.querySelector('.reply');
-  replyBtn.addEventListener('click', function () {
-    console.log('called');
-    document.getElementById('usercomment').style.display = 'block'
-    return false;
-  }); 
+    allComments.list.push({
+      userComment,
+      userName,
+      allComments:[]
+    })
+    resetInput();
+    renderComments();  
+    console.log(...allComments.list);    
 }
 
-
-function showUserComments() {
-  var node = '';
-
-  for (let i = 0; i < mainObject.allComments.length; i++) {
-    let value = `<div class="usericon margin-left-20">
-      <div class="inner-usericon">
-          <img src="user-icon.png" alt="icon" >
-      </div>
-      <div class="inner-userdetail">
-        <h5 class="user-name">${ mainObject.allComments[i].username }</h5>
-        <p class="user-comment">${ mainObject.allComments[i].comments }</p>
-        <span class="reply" data-id="${i}">Reply</span>
-        <span class="share">share</span>
-      </div>    
-    </div>  <div class="container-form" id="usercomment" style="display:none">
-    <div class="">
-      <textarea name="comments" id="usercomments" cols="30" rows="10" placeholder="start writing"></textarea>
+function renderComments(){
+    let appendHTML = `<div>
+    <div class="user-image">
+      <img src="./assets/user-icon.png" alt="">
     </div>
-    <div>
-      <div class="container-user">
-        <input type="text" name="username" id="userusername" placeholder="username" class="comment-width">
-        <button class="postComments" >Comment</button>
-      </div>
-    </div>
-  </div> `;
-    if(mainObject.allComments[i].userComments){
-      for (let j = 0; j < mainObject.allComments[i].userComments.length; j++) {
-      let userValue = `<div class="usericon" style="margin-left: 32px;">
-              <div class="inner-usericon">
-                  <img src="user-icon.png" alt="icon" >
+    <div class="user-details">
+      <h6>username</h6>
+      <h6>comments</h6>
+      <span>Reply</span><span>Share</span>
+          <div>
+              <div class="user-image">
+                <img src="./assets/user-icon.png" alt="">
               </div>
-              <div class="inner-userdetail">
-                <h5 class="user-name">${ mainObject.allComments[i].userComments[j].username }</h5>
-                <p class="user-comment">${ mainObject.allComments[i].userComments[j].comment }</p>
-                <span class="reply" data-id="${i}">Reply</span>
-                <span class="share">share</span>
-              </div>    
-            </div>  <div class="container-form" id="usercomment" style="display:none">
-            <div class="">
-              <textarea name="comments" id="usercomments" cols="30" rows="10" placeholder="start writing"></textarea>
-            </div>
-            <div>
-              <div class="container-user">
-                <input type="text" name="username" id="userusername" placeholder="username" class="comment-width">
-                <button class="postComments" >Comment</button>
-              </div>
-            </div>
-          </div>`
-        value += userValue;
-      }
 
+              <div class="user-details">
+                <h6>username</h6>
+                <h6>comments</h6>
+                <span>Reply</span><span>Share</span>
+              </div>
+              <div class="comment-container">
+                  <div class="text-area-comments">
+                      <textarea placeholder="Start writing" cols="30" rows="5"></textarea>
+                  </div>        
+                  <div class="text-input-comments">
+                      <input type="text" placeholder="username"><button type="submit">Comment</button>
+                  </div>        
+              </div>
+        </div>
+    </div>
+  </div>`;
+
+    var text = '';
+    var j = 0; 
+
+function recurse(value) {  
+  for(let i = 0; i < value.length; i++) {             
+        let append = `<div style="margin-left: ${j*20}px;">
+        <div class="user-image">
+          <img src="./assets/user-icon.png" alt="">
+        </div>
+        <div class="user-details">
+          <h6>${value[i].userName}</h6>
+          <h6>${value[i].userComment}</h6>
+          <span class="reply${i}">Reply</span><span>Share</span>                          
+        </div>
+        <div id="append${i}"></div>
+      </div>`
+      text += append;
+      document.getElementById('main-comment-container').innerHTML = text;
+      document.getElementsByClassName('reply'+i)[0].addEventListener('click',function(e){
+
+        let commentHTML = `<div class="comment-container">
+                                <div class="text-area-comments">
+                                    <textarea placeholder="Start writing" class="usercomment${i}" cols="30" rows="5"></textarea>
+                                </div>        
+                                <div class="text-input-comments">
+                                    <input type="text" placeholder="username" class="username${i}"><button type="submit" onclick="userCommentInsection(${i})">Comment</button>
+                                </div>        
+                            </div>`;
+
+        document.getElementById('append'+i).innerHTML = commentHTML;
+
+      })
+        if(value[i].allComments.length !== 0){          
+          j = j+1; 
+          recurse(value[i].allComments);   
+        }       
     }
-
-    node += value;
+    j=0;   
   }
-  document.getElementById("userCommentThread").innerHTML = node;
+  recurse(allComments.list);  
 }
 
-function userComments(){
-  var postComments = document.querySelector('.postComments');
-  postComments.addEventListener('click', function () {
-    console.log('post');
+function userCommentInsection(id){
+  console.log(id);  
     
-    let comment = document.getElementById('usercomments').value;
-    let username = document.getElementById('userusername').value;
-    let userComments = {
-      comment,
-      username,
-      userComments:[]
-    };
+  let userComment = document.getElementsByClassName('usercomment'+id)[0].value;
+  let userName = document.getElementsByClassName('username'+id)[0].value;
+  console.log(id,userName,userComment);  
+  allComments.list[id].allComments.push({
+    userComment,
+    userName,
+    allComments:[]
+  })
+
+  document.getElementById('append'+id).innerHTML = '';
+console.log(allComments.list)
+
+
+renderComments();
+}
+
+function showUserComments(){
+    console.log('reply called');
     
-    mainObject.allComments[0].userComments.push(userComments);
-    console.log(mainObject);
-    document.getElementById('usercomment').style.display = 'none';
-    showUserComments()
-    // mainObject.allCommentsDetails[0]
-    // showUserComments();
-    // return false;
-  });
 }
 
 
-
-function resetUserInput() {
-  document.getElementById('comments').value = '';
-  document.getElementById('username').value = '';
+function resetInput(){
+  document.getElementById('main-id-comment').value = '';
+  document.getElementById('main-id-username').value = '';
 }
-
-
-document.addEventListener("DOMContentLoaded", init, false);

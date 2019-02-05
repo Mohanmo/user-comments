@@ -1,128 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <style>
-    .container{
-      background: #cccccc;
-    }
-    .container-form{
-      width: 100%;  
-      padding: 10px;    
-    }
-    .container-user{
-      width: 100%;
-      color: blueviolet;
-      padding-top: 10px;
-    }
-    img{
-      width: 40px;
-    }
-    textarea{
-       width: 94%; 
-      }
-      input[type='text']{
-        width: 85%;
-        height: 30px;
-      }
-      button{
-        height: 34px;
-        width: 10%;
-        border: 1px solid #cccccc;
-      }
-      .usericon{
-        /* float: left; */
-        padding: 10px;
-      }
-      .reply,.share{
-        color:#948989;
-        padding-left: 4px;
-        cursor: pointer;
-        font-size: 12px;
-      }
-      .inner-usericon{
-        width: 50%;
-        display: inline;
-      }
-      .inner-userdetail{
-        width: 50%;
-        display: inline-block;
-        text-align: left;
-        font-size: 16px;
-      }
-      .user-name{
-        color: blueviolet;
-      }
-      h5,p{
-        padding: 0px;
-        margin: 0px;
-      }
-      h2{
-        padding: 10px;
-        margin: 0px;
-      }
-
-      .comment-width{
-        width: 72% !important;
-      }
-      .postComments{
-        width: 20%;
-      }
-
-      .margin-left-20{
-        margin-left: 20px;
-      }
-
-  </style>
-  <title>Comments Section</title>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">  
+  <link rel="stylesheet" href="./assets/style.css">
+  <title>FaceBook Comments Javascript Implementation</title>
 </head>
-
 <body>
-  <div class="container">
-    <div>
-      <h2> Update Your Status</h2>
-      <form class="container-form" id="myForm">
-        <div class="">
-          <textarea name="comments" id="comments" cols="30" rows="10" placeholder="start writing"></textarea>
-        </div>
-        <div>
-          <div class="container-user">
-            <input type="text" name="username" id="username" placeholder="username">
-            <button class="postUserComments">Post</button>
-          </div>
-        </div>
-      </form>
-      <div id="userCommentThread">
-        <!-- <div class="usericon">
-          <div class="inner-usericon">
-            <img src="user-icon.png" alt="icon">
-          </div>
-          <div class="inner-userdetail">
-            <h5 class="user-name"></h5>
-            <p class="user-comment"></p>
-            <span class="reply">Reply</span>
-            <span class="share">share</span>
-          </div>
+    <div class="main-container">
+      <h1>Update Your Status</h1>
+      <div class="comment-container">
+        <div class="text-area">
+            <textarea placeholder="Start writing" id="main-id-comment" cols="30" rows="5"></textarea>
+        </div>        
+        <div class="text-input">
+            <input type="text" placeholder="username"id="main-id-username" ><button id="submit" type="submit">Post</button>
+        </div>        
+      </div>
 
-          <form class="container-form" id="usercomment" style="display:none">
-            <div class="">
-              <textarea name="comments" id="usercomments" cols="30" rows="10" placeholder="start writing"></textarea>
-            </div>
-            <div>
-              <div class="container-user">
-                <input type="text" name="username" id="userusername" placeholder="username">
-                <button class="postComments">Comment</button>
+      <div class="main-comment-container" id="main-comment-container">
+        <!-- <div>
+          <div class="user-image">
+            <img src="./assets/user-icon.png" alt="">
+          </div>
+          <div class="user-details">
+            <h6>username</h6>
+            <h6>comments</h6>
+            <span>Reply</span><span>Share</span>
+                <div>
+                    <div class="user-image">
+                      <img src="./assets/user-icon.png" alt="">
+                    </div>
+
+                    <div class="user-details">
+                      <h6>username</h6>
+                      <h6>comments</h6>
+                      <span>Reply</span><span>Share</span>
+                    </div>
+                    <div class="comment-container">
+                        <div class="text-area-comments">
+                            <textarea placeholder="Start writing" cols="30" rows="5"></textarea>
+                        </div>        
+                        <div class="text-input-comments">
+                            <input type="text" placeholder="username"><button type="submit">Comment</button>
+                        </div>        
+                    </div>
               </div>
-            </div>
-          </form>
+          </div>
         </div> -->
       </div>
-    </div>
-  </div>
-  <script src="main.js"></script>
-</body>
 
+
+    </div>
+    <script src="./main.js"></script>
+</body>
 </html>
