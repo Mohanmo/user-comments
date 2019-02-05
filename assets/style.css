@@ -1,0 +1,74 @@
+*{
+  padding: 0px;
+  margin: 0px;
+}
+
+.main-container{
+  background: #e6e3e3;
+  padding: 10px;
+}
+
+.comment-container{
+  padding: 10px 0px;
+}
+
+.text-area textarea{
+  width: 96%;
+  padding: 10px;
+}
+
+.text-area-comments textarea{
+  width: 96%;
+  padding: 10px;
+}
+
+.text-input input[type="text"]{
+  width:77%;
+  padding: 9px;
+}
+
+.text-input button{
+  width:18%;
+  padding: 10px;
+  margin-left: 8px;
+}
+
+.text-input-comments input[type="text"]{
+  width: 56%;
+  padding: 9px
+}
+
+.text-input-comments button{
+  width:30%;
+  padding: 10px;
+  margin-left: 8px;
+}
+
+.user-image{
+  /* float: left; */
+  display: inline;
+}
+
+.user-image img{
+  width: 45px;
+  margin: 5px;
+  box-shadow: 1px 10px 10px #ccc;
+}
+
+.user-details h6{  
+  font-size: 16px;
+  font-weight: 100;
+}
+
+.user-details span{  
+  padding-right: 10px;
+  font-size: 12px;
+  font-weight: 100;
+  cursor: pointer;
+}
+
+.user-details{
+  display: inline-block;
+  padding-left: 10px;
+  font-size: 16px;
+}
