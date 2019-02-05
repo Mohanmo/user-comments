@@ -102,13 +102,15 @@ function userComments(){
   var postComments = document.querySelector('.postComments');
   postComments.addEventListener('click', function () {
     console.log('post');
+    
     let comment = document.getElementById('usercomments').value;
     let username = document.getElementById('userusername').value;
     let userComments = {
       comment,
       username,
+      userComments:[]
     };
-
+    
     mainObject.allComments[0].userComments.push(userComments);
     console.log(mainObject);
     document.getElementById('usercomment').style.display = 'none';
