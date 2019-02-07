@@ -1,53 +1,53 @@
 var allComments = {
   list:[
-      // {
-      //   userComment:'root1',
-      //   userName:'root1',
-      //   allComments:[
-      //     {
-      //       userComment:'sub',
-      //       userName:'sub',
-      //       allComments:[]
-      //     },
-      //     {
-      //       userComment:'sub',
-      //       userName:'sub',
-      //       allComments:[]
-      //     }
-      //   ]
-      // },
-      // {
-      //   userComment:'root2',
-      //   userName:'root2',
-      //   allComments:[
-      //     {
-      //       userComment:'sub2',
-      //       userName:'sub2',
-      //       allComments:[]
-      //     },
-      //     {
-      //       userComment:'sub2',
-      //       userName:'sub2',
-      //       allComments:[{
-      //         userComment:'sub2-1',
-      //         userName:'sub2-1',
-      //         allComments:[{
-      //           userComment:'sub2-2',
-      //           userName:'sub2-2',
-      //           allComments:[ {
-      //             userComment:'sub2-1',
-      //             userName:'sub2-1',
-      //             allComments:[{
-      //               userComment:'sub2-2',
-      //               userName:'sub2-2',
-      //               allComments:[]
-      //             }]
-      //           }]
-      //         }]
-      //       }]
-      //     }
-      //   ]
-      // }
+      {
+        userComment:'root1',
+        userName:'root1',
+        allComments:[
+          {
+            userComment:'sub',
+            userName:'sub',
+            allComments:[]
+          },
+          {
+            userComment:'sub',
+            userName:'sub',
+            allComments:[]
+          }
+        ]
+      },
+      {
+        userComment:'root2',
+        userName:'root2',
+        allComments:[
+          {
+            userComment:'sub2',
+            userName:'sub2',
+            allComments:[]
+          },
+          {
+            userComment:'sub2',
+            userName:'sub2',
+            allComments:[{
+              userComment:'sub2-1',
+              userName:'sub2-1',
+              allComments:[{
+                userComment:'sub2-2',
+                userName:'sub2-2',
+                allComments:[ {
+                  userComment:'sub2-1',
+                  userName:'sub2-1',
+                  allComments:[{
+                    userComment:'sub2-2',
+                    userName:'sub2-2',
+                    allComments:[]
+                  }]
+                }]
+              }]
+            }]
+          }
+        ]
+      }
   ]
 };
 
@@ -103,9 +103,11 @@ function renderComments(){
 
     var text = '';
     var j = 0; 
-
-function recurse(value) {  
-  for(let i = 0; i < value.length; i++) {             
+    var k = 0;
+(function recurse(value) {  
+ 
+  for(let i = 0; i < value.length; i++) {
+    k++;             
         let append = `<div style="margin-left: ${j*20}px;">
         <div class="user-image">
           <img src="./assets/user-icon.png" alt="">
@@ -113,25 +115,25 @@ function recurse(value) {
         <div class="user-details">
           <h6>${value[i].userName}</h6>
           <h6>${value[i].userComment}</h6>
-          <span class="reply${i}">Reply</span><span>Share</span>                          
+          <span id="reply${k}">Reply</span><span>Share</span>                          
         </div>
-        <div id="append${i}"></div>
+        <div id="append${k}"></div>
       </div>`
       text += append;
       document.getElementById('main-comment-container').innerHTML = text;
-      document.getElementsByClassName('reply'+i)[0].addEventListener('click',function(e){
+      document.getElementById('reply'+k).addEventListener('click', function(e){
 
         let commentHTML = `<div class="comment-container">
                                 <div class="text-area-comments">
-                                    <textarea placeholder="Start writing" class="usercomment${i}" cols="30" rows="5"></textarea>
+                                    <textarea placeholder="Start writing" id="usercomment${k}" cols="30" rows="5"></textarea>
                                 </div>        
                                 <div class="text-input-comments">
-                                    <input type="text" placeholder="username" class="username${i}"><button type="submit" onclick="userCommentInsection(${i})">Comment</button>
+                                    <input type="text" placeholder="username" id="username${k}"><button type="submit" onclick="userCommentInsection(${i},${k})">Comment</button>
                                 </div>        
                             </div>`;
 
-        document.getElementById('append'+i).innerHTML = commentHTML;
-
+        document.getElementById('append'+k).innerHTML = commentHTML;
+        e.preventDefault();
       })
         if(value[i].allComments.length !== 0){          
           j = j+1; 
@@ -139,17 +141,17 @@ function recurse(value) {
         }       
     }
     j=0;   
-  }
-  recurse(allComments.list);  
+  }(allComments.list))
+  // recurse(allComments.list);  
 }
 
-function userCommentInsection(id){
+function userCommentInsection(index,id){
   console.log(id);  
     
-  let userComment = document.getElementsByClassName('usercomment'+id)[0].value;
-  let userName = document.getElementsByClassName('username'+id)[0].value;
+  let userComment = document.getElementById('usercomment'+id).value;
+  let userName = document.getElementById('username'+id).value;
   console.log(id,userName,userComment);  
-  allComments.list[id].allComments.push({
+  allComments.list[index].allComments.push({
     userComment,
     userName,
     allComments:[]
