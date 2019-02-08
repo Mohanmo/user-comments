@@ -3,6 +3,12 @@
   margin: 0px;
 }
 
+body{
+  width: 90%;
+  margin: 0 auto;
+  padding-top: 30px;
+}
+
 .main-container{
   background: #e6e3e3;
   padding: 10px;
